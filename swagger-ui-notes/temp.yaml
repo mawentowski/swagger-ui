@@ -1,0 +1,68 @@
+name: ...
+title: ...
+state: active
+description: ...
+
+rules:
+
+
+
+
+
+
+  consistent-descriptions:
+    rule: Fields should have consistent naming and descriptions across contexts.
+    rationale: |
+      Fields that serve the same purpose in different parts of the API (e.g., parameters, request/response body properties) across different endpoints should have a uniform description to ensure consistency and avoid confusion.
+
+      To achieve this, define a shared schema with a single, centrally-defined description in your OpenAPI spec.
+    examples:
+      bad:
+        - language: yaml
+          code: |
+            # This field was used in multiple endpoints without a shared schema potentially resulting in inconsistent descriptions.
+              /users/{userId}:
+                parameters:
+                  - name: email
+                    description: User's email address
+        - language: ...
+          code: |
+            # Field that fulfills the same purpose as the first example but has a different name.
+            /users:
+              requestBody:
+                properties:
+                  userEmailAddress:
+                    description: User's contact email
+      good:
+        - language: yaml
+          code: |
+            # Field defined using and referenced throughout the spec using a shared schema.
+            schemas:
+              Email:
+                type: string
+                format: email
+                description: User's email address
+
+
+
+
+
+
+
+  rule-name2:
+    rule:
+    rationale: |
+      ...
+    examples:
+      bad:
+        - language: ...
+          code: ...
+        - language: ...
+          code: |
+            ...
+      good:
+        - language: ...
+          code: ...
+        - language: ...
+          code: |
+            ...

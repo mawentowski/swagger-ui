@@ -1,0 +1,2709 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "GTI Engine",
+    "description": "### Glucocorticoid Toxicity Index\n\n\n\nThe ***Glucocorticoid Toxicity Index (GTI)*** is a cloud-based instrument for the comprehensive assessment of glucocorticoid-induced toxicity.\n\n\n",
+    "version": "1.0.0",
+    "x-logo": {
+      "url": "https://www.steritas.com/hubfs/raw_assets/public/Steritas%202022/assets/images/primary-logo.png"
+    },
+    "termsOfService": ["https://www.steritas.com/contact"],
+    "contact": {
+      "name": "Get Help with this API",
+      "url": "https://www.steritas.com/contact"
+    }
+  },
+  "paths": {
+    "/api/v1/{algorithm}/calculateScore": {
+      "post": {
+        "tags": ["SCORES"],
+        "summary": "Calculate Score",
+        "description": "Endpoint to calaculate the GTI Score.",
+        "operationId": "calculate_score_api_v1__algorithm__calculateScore_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/Algorithm" },
+            "name": "algorithm",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_calculate_score_api_v1__algorithm__calculateScore_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ScoreResult" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/{algorithm}/multipart/calculateScore": {
+      "post": {
+        "tags": ["SCORES"],
+        "summary": "Calculate Multipart Score",
+        "operationId": "calculate_multipart_score_api_v1__algorithm__multipart_calculateScore_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/Algorithm" },
+            "name": "algorithm",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_calculate_multipart_score_api_v1__algorithm__multipart_calculateScore_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ScoreResult" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/{algorithm}/multipart/calculateScore/saved/{id_configuration}": {
+      "post": {
+        "tags": ["SCORES"],
+        "summary": "Calculate Multipart Score Saved Config",
+        "operationId": "calculate_multipart_score_saved_config_api_v1__algorithm__multipart_calculateScore_saved__id_configuration__post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/Algorithm" },
+            "name": "algorithm",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": { "title": "Id Configuration", "type": "integer" },
+            "name": "id_configuration",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_calculate_multipart_score_saved_config_api_v1__algorithm__multipart_calculateScore_saved__id_configuration__post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/gti/multipart/configurations/all": {
+      "get": {
+        "tags": ["SCORES"],
+        "summary": "All Saved Configurations",
+        "operationId": "all_saved_configurations_api_v1_gti_multipart_configurations_all_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response All Saved Configurations Api V1 Gti Multipart Configurations All Get",
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/SaveConfiguration" }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/gti/multipart/configurations/save/{configuration_id}": {
+      "patch": {
+        "tags": ["SCORES"],
+        "summary": "Save Configuration",
+        "operationId": "save_configuration_api_v1_gti_multipart_configurations_save__configuration_id__patch",
+        "parameters": [
+          {
+            "required": true,
+            "schema": { "title": "Configuration Id", "type": "integer" },
+            "name": "configuration_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "title": "Data", "type": "object" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/gti/multipart/configurations/discard/{configuration_id}": {
+      "delete": {
+        "tags": ["SCORES"],
+        "summary": "Discard Configuration",
+        "operationId": "discard_configuration_api_v1_gti_multipart_configurations_discard__configuration_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": { "title": "Configuration Id", "type": "integer" },
+            "name": "configuration_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/gti/checkProcess/{process_id}": {
+      "get": {
+        "tags": ["RESULTS"],
+        "summary": "Check Process",
+        "description": "Endpoint to check an Multipart process ID.",
+        "operationId": "check_process_api_v1_gti_checkProcess__process_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": { "title": "Process Id", "type": "string" },
+            "name": "process_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ThreadStatusModel" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/gti/fetchScore/all": {
+      "get": {
+        "tags": ["RESULTS"],
+        "summary": "Fetch All Scores",
+        "operationId": "fetch_all_scores_api_v1_gti_fetchScore_all_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Fetch All Scores Api V1 Gti Fetchscore All Get",
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ScoreHistory" }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/gti/fetchScore/{score_id}": {
+      "get": {
+        "tags": ["RESULTS"],
+        "summary": "Fetch Score",
+        "description": "Endpoint to fetch a historical GTI Score.",
+        "operationId": "fetch_score_api_v1_gti_fetchScore__score_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": { "title": "Score Id", "type": "string" },
+            "name": "score_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Fetch Score Api V1 Gti Fetchscore  Score Id  Get",
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/gti/downloadScore/{format}/{score_id}": {
+      "get": {
+        "tags": ["RESULTS"],
+        "summary": "Download Score",
+        "description": "Endpoint to download a historical GTI Score.",
+        "operationId": "download_score_api_v1_gti_downloadScore__format___score_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/DownloadFormat" },
+            "name": "format",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": { "title": "Score Id", "type": "string" },
+            "name": "score_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/gti/downloadMultipleScore": {
+      "post": {
+        "tags": ["RESULTS"],
+        "summary": "Download Multiple Score",
+        "description": "Endpoint to download a historical GTI Score.",
+        "operationId": "download_multiple_score_api_v1_gti_downloadMultipleScore_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/MultipleDownloadModel" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/gti/removeScore/{score_id}": {
+      "delete": {
+        "tags": ["RESULTS"],
+        "summary": "Remove Score",
+        "description": "Endpoint to remove a historical GTI Score.",
+        "operationId": "remove_score_api_v1_gti_removeScore__score_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": { "title": "Score Id", "type": "string" },
+            "name": "score_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ScoreHistory" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/gti/removeMultipleScore": {
+      "delete": {
+        "tags": ["RESULTS"],
+        "summary": "Remove Multiple Score",
+        "description": "Endpoint to remove a historical GTI Score.",
+        "operationId": "remove_multiple_score_api_v1_gti_removeMultipleScore_delete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/MultipleRemoveModel" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Remove Multiple Score Api V1 Gti Removemultiplescore Delete",
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ScoreHistory" }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/gti/fetchScore/{score_id}/config": {
+      "get": {
+        "tags": ["RESULTS"],
+        "summary": "Fetch Score With Config",
+        "description": "Endpoint to fetch a historical GTI Score with its configuration.",
+        "operationId": "fetch_score_with_config_api_v1_gti_fetchScore__score_id__config_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": { "title": "Score Id", "type": "string" },
+            "name": "score_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Fetch Score With Config Api V1 Gti Fetchscore  Score Id  Config Get",
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/schedule/create": {
+      "post": {
+        "tags": ["SCHEDULE"],
+        "summary": "Add Job",
+        "operationId": "add_job_api_v1_schedule_create_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/JobCreate" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobCreateDeleteResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/schedule/list/all": {
+      "get": {
+        "tags": ["SCHEDULE"],
+        "summary": "Scheduler List All",
+        "operationId": "scheduler_list_all_api_v1_schedule_list_all_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentScheduledJobsResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/schedule/list": {
+      "get": {
+        "tags": ["SCHEDULE"],
+        "summary": "Scheduler List",
+        "operationId": "scheduler_list_api_v1_schedule_list_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentScheduledJobsResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/schedule/run/{job_id}": {
+      "get": {
+        "tags": ["SCHEDULE"],
+        "summary": "Run Job",
+        "operationId": "run_job_api_v1_schedule_run__job_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": { "title": "Job Id", "type": "string" },
+            "name": "job_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/schedule/delete/{job_id}": {
+      "delete": {
+        "tags": ["SCHEDULE"],
+        "summary": "Remove Job",
+        "operationId": "remove_job_api_v1_schedule_delete__job_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": { "title": "Job Id", "type": "string" },
+            "name": "job_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/auth/create": {
+      "post": {
+        "tags": ["LICENSE"],
+        "summary": "Create License",
+        "operationId": "create_license_api_v1_auth_create_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateApiKey" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiKeyModel" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/auth/list": {
+      "get": {
+        "tags": ["LICENSE"],
+        "summary": "Get All Licenses",
+        "operationId": "get_all_licenses_api_v1_auth_list_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get All Licenses Api V1 Auth List Get",
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ApiKeyModel" }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/auth/check/{email}": {
+      "get": {
+        "tags": ["LICENSE"],
+        "summary": "Get License",
+        "operationId": "get_license_api_v1_auth_check__email__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": { "title": "Email", "type": "string" },
+            "name": "email",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiKeyBasic" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/auth/revoke": {
+      "patch": {
+        "tags": ["LICENSE"],
+        "summary": "Revoke License",
+        "operationId": "revoke_license_api_v1_auth_revoke_patch",
+        "parameters": [
+          {
+            "required": true,
+            "schema": { "title": "Key", "type": "string" },
+            "name": "key",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/StatusApiKeyModel" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    },
+    "/api/v1/auth/update": {
+      "patch": {
+        "tags": ["LICENSE"],
+        "summary": "Update License",
+        "operationId": "update_license_api_v1_auth_update_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ApiKeyUpdate" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/StatusApiKeyModel" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Message" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "APIKeyHeader": [] }]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Actions": {
+        "title": "Actions",
+        "enum": ["FETCH", "CREATE", "UPDATE", "REMOVE", "EXECUTE", "UPLOAD"],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "Algorithm": {
+        "title": "Algorithm",
+        "enum": ["agti", "pgti", "bgti", "mdgti"],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "ApiKeyAccess": {
+        "title": "ApiKeyAccess",
+        "type": "object",
+        "properties": {
+          "licenses": {
+            "title": "Licenses",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/Actions" }
+              },
+              { "type": "boolean" }
+            ]
+          },
+          "scheduler": {
+            "title": "Scheduler",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/Actions" }
+              },
+              { "type": "boolean" }
+            ]
+          },
+          "score": {
+            "title": "Score",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/Actions" }
+              },
+              { "type": "boolean" }
+            ]
+          },
+          "uploader": {
+            "title": "Uploader",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/Actions" }
+              },
+              { "type": "boolean" }
+            ]
+          }
+        }
+      },
+      "ApiKeyAuthentication": {
+        "title": "ApiKeyAuthentication",
+        "required": ["header", "token"],
+        "type": "object",
+        "properties": {
+          "header": { "title": "Header", "type": "string" },
+          "token": { "title": "Token", "type": "string" }
+        }
+      },
+      "ApiKeyBasic": {
+        "title": "ApiKeyBasic",
+        "required": ["client", "email", "key", "referer", "company_type"],
+        "type": "object",
+        "properties": {
+          "client": { "title": "Client", "type": "string" },
+          "email": { "title": "Email", "type": "string" },
+          "key": { "title": "Key", "type": "string" },
+          "referer": { "title": "Referer", "type": "string" },
+          "company_type": { "$ref": "#/components/schemas/CompanyType" },
+          "algorithms": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Algorithm" }
+          },
+          "license": { "title": "License", "type": "object" },
+          "gdpr": { "title": "Gdpr", "type": "boolean" },
+          "preferences": { "$ref": "#/components/schemas/ApiKeyPreferences" },
+          "is_academic": { "title": "Is Academic", "type": "boolean" },
+          "is_trial": { "title": "Is Trial", "type": "boolean" }
+        }
+      },
+      "ApiKeyModel": {
+        "title": "ApiKeyModel",
+        "required": ["key", "client", "referer"],
+        "type": "object",
+        "properties": {
+          "key": { "title": "Key", "type": "string" },
+          "client": { "title": "Client", "type": "string" },
+          "email": { "title": "Email", "type": "string" },
+          "email_verified_at": {
+            "title": "Email Verified At",
+            "type": "string",
+            "format": "date-time"
+          },
+          "phone": { "title": "Phone", "type": "string" },
+          "phone_verified_at": {
+            "title": "Phone Verified At",
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "title": "Updated At",
+            "type": "string",
+            "format": "date-time"
+          },
+          "notification": {
+            "title": "Notification",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TokenType" }
+              },
+              { "type": "string" }
+            ]
+          },
+          "company_type": { "$ref": "#/components/schemas/CompanyType" },
+          "referer": { "title": "Referer", "type": "string" },
+          "algorithms": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Algorithm" },
+            "default": ["agti"]
+          },
+          "gdpr": { "title": "Gdpr", "type": "boolean" },
+          "preferences": { "$ref": "#/components/schemas/ApiKeyPreferences" }
+        }
+      },
+      "ApiKeyPreferences": {
+        "title": "ApiKeyPreferences",
+        "type": "object",
+        "properties": {
+          "base_line": {
+            "title": "Base Line",
+            "type": "string",
+            "default": "first"
+          },
+          "unit": { "title": "Unit", "type": "integer", "default": 0 },
+          "fill_missing": {
+            "title": "Fill Missing",
+            "type": "boolean",
+            "default": false
+          },
+          "save_results": { "$ref": "#/components/schemas/RemoveResultOption" },
+          "remove_date": {
+            "title": "Remove Date",
+            "anyOf": [
+              { "$ref": "#/components/schemas/RemoveResultSchedule" },
+              { "type": "string", "format": "date" }
+            ]
+          }
+        }
+      },
+      "ApiKeyUpdate": {
+        "title": "ApiKeyUpdate",
+        "required": ["key"],
+        "type": "object",
+        "properties": {
+          "key": { "title": "Key", "type": "string" },
+          "date_to": {
+            "title": "Date To",
+            "anyOf": [
+              { "type": "integer" },
+              { "type": "string", "format": "date" }
+            ]
+          },
+          "access": { "$ref": "#/components/schemas/ApiKeyAccess" },
+          "notification": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/TokenType" }
+          },
+          "company_type": { "$ref": "#/components/schemas/CompanyType" },
+          "algorithms": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Algorithm" }
+          },
+          "gdpr": { "title": "Gdpr", "type": "boolean" },
+          "preferences": { "$ref": "#/components/schemas/ApiKeyPreferences" }
+        }
+      },
+      "AuthMethod": {
+        "title": "AuthMethod",
+        "enum": ["NONE", "BASIC", "APIKEY", "BEARER"],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "BMD": {
+        "title": "BMD",
+        "type": "object",
+        "properties": {
+          "femoral": {
+            "title": "Femoral",
+            "exclusiveMaximum": 10.0,
+            "minimum": 0.0,
+            "type": "number"
+          },
+          "lumbosacral": {
+            "title": "Lumbosacral",
+            "exclusiveMaximum": 10.0,
+            "minimum": 0.0,
+            "type": "number"
+          }
+        }
+      },
+      "BMDScore": {
+        "title": "BMDScore",
+        "type": "object",
+        "properties": {
+          "bmdDecrease": { "$ref": "#/components/schemas/ScoreObject" },
+          "necrosis": { "$ref": "#/components/schemas/ScoreObject" },
+          "fracture": { "$ref": "#/components/schemas/ScoreObject" },
+          "tendonRupture": { "$ref": "#/components/schemas/ScoreObject" },
+          "sum": { "title": "Sum", "type": "integer" }
+        }
+      },
+      "BMI": {
+        "title": "BMI",
+        "type": "object",
+        "properties": {
+          "height": {
+            "title": "Height",
+            "minimum": 0.0,
+            "type": "number",
+            "default": 0
+          },
+          "weight": {
+            "title": "Weight",
+            "minimum": 0.0,
+            "type": "number",
+            "default": 0
+          },
+          "bmi": { "title": "Bmi", "type": "number" }
+        }
+      },
+      "BaseConfiguration": {
+        "title": "BaseConfiguration",
+        "required": [
+          "algorithm",
+          "base_line",
+          "unit",
+          "client",
+          "data_mapping",
+          "value_mapping"
+        ],
+        "type": "object",
+        "properties": {
+          "algorithm": { "$ref": "#/components/schemas/Algorithm" },
+          "base_line": { "title": "Base Line", "type": "string" },
+          "unit": { "title": "Unit", "type": "integer" },
+          "client": {
+            "$ref": "#/components/schemas/ClientEndpointsConfiguration"
+          },
+          "data_mapping": {
+            "$ref": "#/components/schemas/DataMappingConfiguration"
+          },
+          "value_mapping": { "title": "Value Mapping", "type": "object" },
+          "notify_success": { "title": "Notify Success", "type": "boolean" }
+        }
+      },
+      "BasicAuthentication": {
+        "title": "BasicAuthentication",
+        "required": ["username", "password"],
+        "type": "object",
+        "properties": {
+          "username": { "title": "Username", "type": "string" },
+          "password": { "title": "Password", "type": "string" }
+        }
+      },
+      "BearerAuthentication": {
+        "title": "BearerAuthentication",
+        "required": ["token"],
+        "type": "object",
+        "properties": { "token": { "title": "Token", "type": "string" } }
+      },
+      "BloodPressure": {
+        "title": "BloodPressure",
+        "type": "object",
+        "properties": {
+          "systolic": {
+            "title": "Systolic",
+            "maximum": 200.0,
+            "minimum": 40.0,
+            "type": "integer"
+          },
+          "diastolic": {
+            "title": "Diastolic",
+            "maximum": 150.0,
+            "minimum": 30.0,
+            "type": "integer"
+          }
+        }
+      },
+      "BloodPressurePGTI": {
+        "title": "BloodPressurePGTI",
+        "type": "object",
+        "properties": {
+          "systolic": {
+            "title": "Systolic",
+            "maximum": 200.0,
+            "minimum": 40.0,
+            "type": "integer"
+          }
+        }
+      },
+      "Body_calculate_multipart_score_api_v1__algorithm__multipart_calculateScore_post": {
+        "title": "Body_calculate_multipart_score_api_v1__algorithm__multipart_calculateScore_post",
+        "required": ["data"],
+        "type": "object",
+        "properties": {
+          "data": { "title": "Data", "type": "string", "format": "binary" },
+          "baseline": {
+            "title": "Baseline",
+            "type": "string",
+            "default": "first"
+          },
+          "unit": {
+            "title": "Unit",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "type": "integer",
+            "default": 0
+          },
+          "fillMissing": {
+            "title": "Fillmissing",
+            "type": "boolean",
+            "default": false
+          },
+          "dataMapping": { "title": "Datamapping", "type": "string" },
+          "valueMapping": { "title": "Valuemapping", "type": "string" },
+          "saveResults": { "$ref": "#/components/schemas/RemoveResultOption" },
+          "removeDate": {
+            "title": "Removedate",
+            "type": "string",
+            "format": "date"
+          },
+          "sync": { "title": "Sync", "type": "boolean", "default": false },
+          "notifySuccess": {
+            "title": "Notifysuccess",
+            "type": "boolean",
+            "default": true
+          },
+          "include": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Includes" },
+            "default": []
+          },
+          "postResultset": {
+            "$ref": "#/components/schemas/ClientConfiguration"
+          },
+          "sheetId": {
+            "title": "Sheetid",
+            "anyOf": [{ "type": "integer" }, { "type": "string" }],
+            "default": 0
+          }
+        }
+      },
+      "Body_calculate_multipart_score_saved_config_api_v1__algorithm__multipart_calculateScore_saved__id_configuration__post": {
+        "title": "Body_calculate_multipart_score_saved_config_api_v1__algorithm__multipart_calculateScore_saved__id_configuration__post",
+        "required": ["data"],
+        "type": "object",
+        "properties": {
+          "data": { "title": "Data", "type": "string", "format": "binary" },
+          "baseline": {
+            "title": "Baseline",
+            "type": "string",
+            "default": "first"
+          },
+          "unit": {
+            "title": "Unit",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "type": "integer",
+            "default": 0
+          },
+          "fillMissing": {
+            "title": "Fillmissing",
+            "type": "boolean",
+            "default": false
+          },
+          "dataMapping": { "title": "Datamapping", "type": "string" },
+          "valueMapping": { "title": "Valuemapping", "type": "string" },
+          "saveResults": { "$ref": "#/components/schemas/RemoveResultOption" },
+          "removeDate": {
+            "title": "Removedate",
+            "type": "string",
+            "format": "date"
+          },
+          "sync": { "title": "Sync", "type": "boolean", "default": false },
+          "notifySuccess": {
+            "title": "Notifysuccess",
+            "type": "boolean",
+            "default": true
+          },
+          "include": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Includes" },
+            "default": []
+          },
+          "postResultset": {
+            "$ref": "#/components/schemas/ClientConfiguration"
+          },
+          "sheetId": {
+            "title": "Sheetid",
+            "anyOf": [{ "type": "integer" }, { "type": "string" }],
+            "default": 0
+          }
+        }
+      },
+      "Body_calculate_score_api_v1__algorithm__calculateScore_post": {
+        "title": "Body_calculate_score_api_v1__algorithm__calculateScore_post",
+        "required": ["configuration", "data"],
+        "type": "object",
+        "properties": {
+          "configuration": { "$ref": "#/components/schemas/Configuration" },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "anyOf": [
+                { "$ref": "#/components/schemas/VisitAGTI" },
+                { "$ref": "#/components/schemas/VisitBGTI" },
+                { "$ref": "#/components/schemas/VisitMDGTI" },
+                { "$ref": "#/components/schemas/VisitPGTI" }
+              ]
+            }
+          }
+        }
+      },
+      "ClientAuthentication": {
+        "title": "ClientAuthentication",
+        "required": ["method"],
+        "type": "object",
+        "properties": {
+          "method": { "$ref": "#/components/schemas/AuthMethod" },
+          "credentials": {
+            "title": "Credentials",
+            "anyOf": [
+              { "$ref": "#/components/schemas/BasicAuthentication" },
+              { "$ref": "#/components/schemas/BearerAuthentication" },
+              { "$ref": "#/components/schemas/ApiKeyAuthentication" }
+            ]
+          }
+        }
+      },
+      "ClientConfiguration": {
+        "title": "ClientConfiguration",
+        "required": ["method", "endpoint", "retry"],
+        "type": "object",
+        "properties": {
+          "method": { "$ref": "#/components/schemas/HTTPMethod" },
+          "endpoint": { "title": "Endpoint", "type": "string" },
+          "body": { "title": "Body", "type": "object" },
+          "auth": { "$ref": "#/components/schemas/ClientAuthentication" },
+          "retry": { "$ref": "#/components/schemas/Retry" }
+        }
+      },
+      "ClientEndpointsConfiguration": {
+        "title": "ClientEndpointsConfiguration",
+        "required": ["request", "response"],
+        "type": "object",
+        "properties": {
+          "request": { "$ref": "#/components/schemas/ClientConfiguration" },
+          "response": { "$ref": "#/components/schemas/ClientConfiguration" }
+        }
+      },
+      "CompanyType": {
+        "title": "CompanyType",
+        "enum": ["TRI", "ACA", "IND"],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "Configuration": {
+        "title": "Configuration",
+        "type": "object",
+        "properties": {
+          "baseline": {
+            "title": "Baseline",
+            "type": "string",
+            "default": "first"
+          },
+          "unit": {
+            "title": "Unit of measurement",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "type": "integer",
+            "description": "0=Metric - 1=Imperial",
+            "default": 0
+          },
+          "fillMissing": {
+            "title": "Fill missing values",
+            "type": "boolean",
+            "default": false
+          },
+          "include": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Includes" },
+            "default": []
+          },
+          "saveResults": { "$ref": "#/components/schemas/RemoveResultOption" },
+          "removeDate": {
+            "title": "Removedate",
+            "type": "string",
+            "format": "date"
+          },
+          "sync": { "title": "Sync", "type": "boolean", "default": true },
+          "notifySuccess": {
+            "title": "Notifysuccess",
+            "type": "boolean",
+            "default": true
+          },
+          "postResultset": {
+            "$ref": "#/components/schemas/ClientConfiguration"
+          }
+        }
+      },
+      "CreateApiKey": {
+        "title": "CreateApiKey",
+        "required": ["date_from", "date_to", "access", "client", "email"],
+        "type": "object",
+        "properties": {
+          "date_from": {
+            "title": "Date From",
+            "type": "string",
+            "format": "date"
+          },
+          "date_to": { "title": "Date To", "type": "string", "format": "date" },
+          "access": { "$ref": "#/components/schemas/ApiKeyAccess" },
+          "notification": {
+            "title": "Notification",
+            "anyOf": [
+              {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TokenType" }
+              },
+              { "type": "string" }
+            ]
+          },
+          "company_type": {
+            "allOf": [{ "$ref": "#/components/schemas/CompanyType" }],
+            "default": "TRI"
+          },
+          "gdpr": { "title": "Gdpr", "type": "boolean" },
+          "preferences": { "$ref": "#/components/schemas/ApiKeyPreferences" },
+          "client": { "title": "Client", "type": "string" },
+          "email": { "title": "Email", "type": "string", "format": "email" },
+          "phone": { "title": "Phone", "type": "string" },
+          "referer": {
+            "allOf": [{ "$ref": "#/components/schemas/RefererType" }],
+            "default": "API"
+          },
+          "algorithms": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Algorithm" },
+            "default": ["mdgti"]
+          },
+          "agreement": { "title": "Agreement", "type": "boolean" }
+        }
+      },
+      "CurrentScheduledJob": {
+        "title": "CurrentScheduledJob",
+        "required": ["job_id", "run_frequency", "next_run", "config"],
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "title": "The Job ID in APScheduler",
+            "type": "string",
+            "description": "The Job ID in APScheduler"
+          },
+          "run_frequency": {
+            "title": "The Job Interval in APScheduler",
+            "type": "string",
+            "description": "The Job Interval in APScheduler"
+          },
+          "next_run": {
+            "title": "Next Scheduled Run for the Job",
+            "type": "string",
+            "description": "Next Scheduled Run for the Job"
+          },
+          "config": {
+            "title": "Job arguments",
+            "type": "string",
+            "description": "Client configuration and data mapping"
+          }
+        },
+        "example": {
+          "job_id": "GTI-score-Test",
+          "run_frequency": "* * * * * ",
+          "next_run": "2023-11-28T18:37:40.978791",
+          "config": "\\{...configutation...\\}"
+        }
+      },
+      "CurrentScheduledJobsResponse": {
+        "title": "CurrentScheduledJobsResponse",
+        "required": ["jobs"],
+        "type": "object",
+        "properties": {
+          "jobs": {
+            "title": "Jobs",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CurrentScheduledJob" }
+          }
+        }
+      },
+      "DamageChecklist": {
+        "title": "DamageChecklist",
+        "type": "object",
+        "properties": {
+          "bmiIncrease": { "title": "Bmiincrease", "type": "boolean" },
+          "diabeticNephropathy": {
+            "title": "Diabeticnephropathy",
+            "type": "boolean"
+          },
+          "diabeticNeuropathy": {
+            "title": "Diabeticneuropathy",
+            "type": "boolean"
+          },
+          "diabeticRetinopathy": {
+            "title": "Diabeticretinopathy",
+            "type": "boolean"
+          },
+          "bmdDecrease": { "title": "Bmddecrease", "type": "boolean" },
+          "adrenalInsufficiency": {
+            "title": "Adrenalinsufficiency",
+            "type": "boolean"
+          },
+          "fracture": { "$ref": "#/components/schemas/Quantity" },
+          "tendonRupture": { "$ref": "#/components/schemas/Quantity" },
+          "ruptureLocations": { "title": "Rupturelocations", "type": "string" },
+          "necrosis": { "$ref": "#/components/schemas/Quantity" },
+          "necrosisLocations": {
+            "title": "Necrosislocations",
+            "type": "string"
+          },
+          "fractureLocations": {
+            "title": "Fracturelocations",
+            "type": "string"
+          },
+          "retinopathy": { "title": "Retinopathy", "type": "boolean" },
+          "ocularPressure": { "title": "Ocularpressure", "type": "boolean" },
+          "cataract": { "title": "Cataract", "type": "boolean" },
+          "giPerforation": { "title": "Giperforation", "type": "boolean" },
+          "pepticUlcer": { "title": "Pepticulcer", "type": "boolean" },
+          "otherToxicity": { "title": "Othertoxicity", "type": "string" }
+        }
+      },
+      "DataMappingConfiguration": {
+        "title": "DataMappingConfiguration",
+        "required": ["request", "response"],
+        "type": "object",
+        "properties": {
+          "request": { "title": "Request", "type": "string" },
+          "response": { "title": "Response", "type": "string" }
+        }
+      },
+      "DiabetesScore": {
+        "title": "DiabetesScore",
+        "required": ["sum"],
+        "type": "object",
+        "properties": {
+          "diabeticNeuropathy": { "$ref": "#/components/schemas/ScoreObject" },
+          "diabeticNephropathy": { "$ref": "#/components/schemas/ScoreObject" },
+          "diabeticRetinopathy": { "$ref": "#/components/schemas/ScoreObject" },
+          "sum": { "title": "Sum", "type": "integer" }
+        }
+      },
+      "DownloadFormat": {
+        "title": "DownloadFormat",
+        "enum": ["csv", "json", "xlsx"],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "Events": {
+        "title": "Events",
+        "type": "object",
+        "properties": {
+          "hypertensiveEmergency": {
+            "title": "Hypertensiveemergency",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "bpPres": {
+            "title": "Bppres",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "type": "integer"
+          }
+        }
+      },
+      "GastrointestinalScore": {
+        "title": "GastrointestinalScore",
+        "required": ["sum"],
+        "type": "object",
+        "properties": {
+          "giPerforation": { "$ref": "#/components/schemas/ScoreObject" },
+          "pepticUlcer": { "$ref": "#/components/schemas/ScoreObject" },
+          "sum": { "title": "Sum", "type": "integer" }
+        }
+      },
+      "HTTPMethod": {
+        "title": "HTTPMethod",
+        "enum": ["GET", "POST", "PATCH"],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ValidationError" }
+          }
+        }
+      },
+      "Includes": {
+        "title": "Includes",
+        "enum": [
+          "adrenal",
+          "bloodPressure",
+          "bmi",
+          "hba1c",
+          "steroidMyopathy",
+          "ldl",
+          "skinToxicity",
+          "neuropsychiatric",
+          "infections",
+          "gastrointestinal",
+          "diabetes",
+          "bmd",
+          "ocular",
+          "bpEvents"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "Infections": {
+        "title": "Infections",
+        "type": "object",
+        "properties": {
+          "grade3Infection": { "title": "Grade3Infection", "type": "integer" },
+          "grade3or4Infection": {
+            "title": "Grade3Or4Infection",
+            "type": "integer"
+          },
+          "grade4Infection": { "title": "Grade4Infection", "type": "integer" },
+          "grade5Infection": { "title": "Grade5Infection", "type": "integer" },
+          "zoster": { "title": "Zoster", "type": "integer" },
+          "candidiasis": { "title": "Candidiasis", "type": "integer" }
+        }
+      },
+      "InfectionsScore": {
+        "title": "InfectionsScore",
+        "type": "object",
+        "properties": {
+          "grade3Infection": { "$ref": "#/components/schemas/ScoreObject" },
+          "grade4Infection": { "$ref": "#/components/schemas/ScoreObject" },
+          "grade3or4Infection": { "$ref": "#/components/schemas/ScoreObject" },
+          "grade5Infection": { "$ref": "#/components/schemas/ScoreObject" },
+          "zoster": { "$ref": "#/components/schemas/ScoreObject" },
+          "candidiasis": { "$ref": "#/components/schemas/ScoreObject" },
+          "sum": { "title": "Sum", "type": "integer" }
+        }
+      },
+      "JobCreate": {
+        "title": "JobCreate",
+        "required": ["job_id", "schedule", "config"],
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "title": "The Job ID in Scheduler",
+            "type": "string",
+            "description": "Mostly the client name"
+          },
+          "schedule": {
+            "title": "Cron type string",
+            "type": "string",
+            "description": "https://crontab.cronhub.io/"
+          },
+          "config": {
+            "title": "Job Configuration schema",
+            "allOf": [{ "$ref": "#/components/schemas/BaseConfiguration" }]
+          }
+        }
+      },
+      "JobCreateDeleteResponse": {
+        "title": "JobCreateDeleteResponse",
+        "required": ["scheduled", "job_id"],
+        "type": "object",
+        "properties": {
+          "scheduled": {
+            "title": "Whether the job was scheduler or not",
+            "type": "boolean",
+            "description": "Whether the job was scheduler or not"
+          },
+          "job_id": {
+            "title": "The Job ID in APScheduler",
+            "type": "string",
+            "description": "The Job ID in APScheduler"
+          }
+        },
+        "example": { "scheduled": true, "job_id": "GTI-score-Test" }
+      },
+      "LDLTarget": {
+        "title": "LDLTarget",
+        "enum": [4.913, 2.586, 1.81],
+        "type": "number",
+        "description": "An enumeration."
+      },
+      "Labs": {
+        "title": "Labs",
+        "type": "object",
+        "properties": {
+          "ldl": { "title": "Ldl", "type": "number" },
+          "ldlTarget": {
+            "allOf": [{ "$ref": "#/components/schemas/LDLTarget" }],
+            "default": 1.81
+          },
+          "hba1c": {
+            "title": "Hba1C",
+            "maximum": 20.0,
+            "minimum": 3.0,
+            "type": "number"
+          }
+        }
+      },
+      "LabsScore": {
+        "title": "LabsScore",
+        "type": "object",
+        "properties": {
+          "lipids": { "$ref": "#/components/schemas/ScoreObject" },
+          "glucoseTolerance": { "$ref": "#/components/schemas/ScoreObject" }
+        }
+      },
+      "Medication": {
+        "title": "Medication",
+        "type": "object",
+        "properties": {
+          "lipidIntent": { "title": "Lipidintent", "type": "integer" },
+          "bpIntent": { "title": "Bpintent", "type": "integer" },
+          "glucoseIntent": { "title": "Glucoseintent", "type": "integer" }
+        }
+      },
+      "Message": {
+        "title": "Message",
+        "required": ["message"],
+        "type": "object",
+        "properties": { "message": { "title": "Message", "type": "string" } }
+      },
+      "MultipleDownloadModel": {
+        "title": "MultipleDownloadModel",
+        "required": ["format", "score_ids"],
+        "type": "object",
+        "properties": {
+          "format": { "$ref": "#/components/schemas/DownloadFormat" },
+          "score_ids": {
+            "title": "Score Ids",
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      },
+      "MultipleRemoveModel": {
+        "title": "MultipleRemoveModel",
+        "required": ["score_ids"],
+        "type": "object",
+        "properties": {
+          "score_ids": {
+            "title": "Score Ids",
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      },
+      "NeuropsychiatricAGTI": {
+        "title": "NeuropsychiatricAGTI",
+        "type": "object",
+        "properties": {
+          "insomnia": {
+            "title": "Insomnia",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "mania": {
+            "title": "Mania",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "cognitiveImpairment": {
+            "title": "Cognitiveimpairment",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "depression": {
+            "title": "Depression",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "psychosis": {
+            "title": "Psychosis",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "steroidViolence": {
+            "title": "Steroidviolence",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "type": "integer"
+          }
+        }
+      },
+      "NeuropsychiatricPGTI": {
+        "title": "NeuropsychiatricPGTI",
+        "type": "object",
+        "properties": {
+          "sleepDisturbance": {
+            "title": "Sleepdisturbance",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "cognitiveImpairment": {
+            "title": "Cognitiveimpairment",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "mood": {
+            "title": "Mood",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "psychosis": {
+            "title": "Psychosis",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "steroidViolence": {
+            "title": "Steroidviolence",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "type": "integer"
+          }
+        }
+      },
+      "NeuropsychiatricScore": {
+        "title": "NeuropsychiatricScore",
+        "required": ["cognitiveImpairment"],
+        "type": "object",
+        "properties": {
+          "insomnia": { "$ref": "#/components/schemas/ScoreObject" },
+          "sleepDisturbance": { "$ref": "#/components/schemas/ScoreObject" },
+          "mania": { "$ref": "#/components/schemas/ScoreObject" },
+          "cognitiveImpairment": { "$ref": "#/components/schemas/ScoreObject" },
+          "depression": { "$ref": "#/components/schemas/ScoreObject" },
+          "mood": { "$ref": "#/components/schemas/ScoreObject" },
+          "psychosis": { "$ref": "#/components/schemas/ScoreObject" },
+          "steroidViolence": { "$ref": "#/components/schemas/ScoreObject" },
+          "max": { "title": "Max", "type": "integer" },
+          "min": { "title": "Min", "type": "integer" },
+          "sum": { "title": "Sum", "type": "integer" }
+        }
+      },
+      "OcularScore": {
+        "title": "OcularScore",
+        "required": ["retinopathy", "ocularPressure", "cataract", "sum"],
+        "type": "object",
+        "properties": {
+          "retinopathy": { "$ref": "#/components/schemas/ScoreObject" },
+          "ocularPressure": { "$ref": "#/components/schemas/ScoreObject" },
+          "cataract": { "$ref": "#/components/schemas/ScoreObject" },
+          "sum": { "title": "Sum", "type": "integer" }
+        }
+      },
+      "Quantity": {
+        "title": "Quantity",
+        "enum": ["single", "multiple", "none"],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "RefererType": {
+        "title": "RefererType",
+        "enum": ["APP", "API"],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "RemoveResultOption": {
+        "title": "RemoveResultOption",
+        "enum": ["AUTO", "DATE", "NEVER", "KEEP"],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "RemoveResultSchedule": {
+        "title": "RemoveResultSchedule",
+        "enum": ["DAY", "WEEK", "MONTH", "YEAR"],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "Retry": {
+        "title": "Retry",
+        "required": ["error_codes", "max", "delay"],
+        "type": "object",
+        "properties": {
+          "error_codes": {
+            "title": "Error Codes",
+            "type": "array",
+            "items": { "type": "integer" }
+          },
+          "max": { "title": "Max", "type": "integer" },
+          "delay": { "title": "Delay", "type": "integer" }
+        }
+      },
+      "SaveConfiguration": {
+        "title": "SaveConfiguration",
+        "required": ["id", "alias", "sync", "resultset_id"],
+        "type": "object",
+        "properties": {
+          "id": { "title": "Id", "type": "integer" },
+          "alias": { "title": "Alias", "type": "string" },
+          "sync": { "title": "Sync", "type": "boolean" },
+          "resultset_id": { "title": "Resultset Id", "type": "string" },
+          "confirmed_at": {
+            "title": "Confirmed At",
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "ScoreHistory": {
+        "title": "ScoreHistory",
+        "required": [
+          "request_type",
+          "score_id",
+          "created_at",
+          "keep",
+          "algorithm",
+          "alias"
+        ],
+        "type": "object",
+        "properties": {
+          "request_type": { "title": "Request Type", "type": "string" },
+          "score_id": { "title": "Score Id", "type": "string" },
+          "created_at": {
+            "title": "Created At",
+            "type": "string",
+            "format": "date-time"
+          },
+          "last_view_at": {
+            "title": "Last View At",
+            "type": "string",
+            "format": "date-time"
+          },
+          "remove_date": {
+            "title": "Remove Date",
+            "type": "string",
+            "format": "date-time"
+          },
+          "keep": { "title": "Keep", "type": "boolean" },
+          "algorithm": { "title": "Algorithm", "type": "string" },
+          "removed_at": {
+            "title": "Removed At",
+            "type": "string",
+            "format": "date-time"
+          },
+          "alias": { "title": "Alias", "type": "string" }
+        }
+      },
+      "ScoreObject": {
+        "title": "ScoreObject",
+        "type": "object",
+        "properties": {
+          "score": { "title": "Score", "type": "integer", "default": 0 },
+          "label": { "title": "Label", "type": "string" }
+        }
+      },
+      "ScoreResult": {
+        "title": "ScoreResult",
+        "required": ["resultsetId", "score"],
+        "type": "object",
+        "properties": {
+          "resultsetId": { "title": "Resultsetid", "type": "string" },
+          "score": {
+            "title": "Score",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/VisitScore" }
+          },
+          "log": {
+            "title": "Log",
+            "type": "array",
+            "items": { "type": "object" },
+            "default": []
+          },
+          "messages": {
+            "title": "Messages",
+            "type": "array",
+            "items": { "type": "object" },
+            "default": []
+          },
+          "alias": { "title": "Alias", "type": "string" }
+        }
+      },
+      "SkinToxicityAGTI": {
+        "title": "SkinToxicityAGTI",
+        "type": "object",
+        "properties": {
+          "hirsutism": {
+            "title": "Hirsutism",
+            "maximum": 2.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "acneiformRash": {
+            "title": "Acneiformrash",
+            "maximum": 4.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "easyBruising": {
+            "title": "Easybruising",
+            "maximum": 2.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "atrophyStriae": {
+            "title": "Atrophystriae",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "erosionTearUlceration": {
+            "title": "Erosiontearulceration",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "type": "integer"
+          }
+        }
+      },
+      "SkinToxicityPGTI": {
+        "title": "SkinToxicityPGTI",
+        "type": "object",
+        "properties": {
+          "hirsutism": {
+            "title": "Hirsutism",
+            "maximum": 2.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "acneiformRash": {
+            "title": "Acneiformrash",
+            "maximum": 4.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "easyBruising": {
+            "title": "Easybruising",
+            "maximum": 2.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "atrophyStriae": {
+            "title": "Atrophystriae",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "erosionTearUlceration": {
+            "title": "Erosiontearulceration",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "type": "integer"
+          }
+        }
+      },
+      "SkinToxicityScore": {
+        "title": "SkinToxicityScore",
+        "required": [
+          "hirsutism",
+          "acneiformRash",
+          "easyBruising",
+          "atrophyStriae"
+        ],
+        "type": "object",
+        "properties": {
+          "hirsutism": { "$ref": "#/components/schemas/ScoreObject" },
+          "acneiformRash": { "$ref": "#/components/schemas/ScoreObject" },
+          "easyBruising": { "$ref": "#/components/schemas/ScoreObject" },
+          "atrophyStriae": { "$ref": "#/components/schemas/ScoreObject" },
+          "erosionTearUlceration": {
+            "$ref": "#/components/schemas/ScoreObject"
+          },
+          "max": { "title": "Max", "type": "integer" },
+          "min": { "title": "Min", "type": "integer" },
+          "sum": { "title": "Sum", "type": "integer" }
+        }
+      },
+      "StatusApiKeyModel": {
+        "title": "StatusApiKeyModel",
+        "required": ["key", "is_active"],
+        "type": "object",
+        "properties": {
+          "key": { "title": "Key", "type": "string" },
+          "is_active": { "title": "Is Active", "type": "boolean" }
+        }
+      },
+      "SteroidMyopathy": {
+        "title": "SteroidMyopathy",
+        "type": "object",
+        "properties": {
+          "myopathySeverity": {
+            "title": "Myopathyseverity",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "type": "integer"
+          }
+        }
+      },
+      "Subject": {
+        "title": "Subject",
+        "type": "object",
+        "properties": {
+          "age": { "title": "Age", "type": "integer" },
+          "sex": { "title": "Sex", "type": "integer" }
+        }
+      },
+      "ThreadStatusModel": {
+        "title": "ThreadStatusModel",
+        "required": ["thread_id", "created_at", "status", "value"],
+        "type": "object",
+        "properties": {
+          "thread_id": { "title": "Thread Id", "type": "integer" },
+          "created_at": {
+            "title": "Created At",
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": { "title": "Status", "type": "string" },
+          "value": { "title": "Value", "type": "object" }
+        }
+      },
+      "TokenType": {
+        "title": "TokenType",
+        "enum": ["EMAIL", "SMS", "WHATSAPP"],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": ["loc", "msg", "type"],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] }
+          },
+          "msg": { "title": "Message", "type": "string" },
+          "type": { "title": "Error Type", "type": "string" }
+        }
+      },
+      "VisitAGTI": {
+        "title": "AGTI",
+        "required": [
+          "SUBJID",
+          "visitNumber",
+          "visitDate",
+          "medication",
+          "labs",
+          "bmi",
+          "bloodPressure",
+          "bmd",
+          "steroidMyopathy",
+          "skinToxicity",
+          "neuropsychiatric",
+          "infections",
+          "events"
+        ],
+        "type": "object",
+        "properties": {
+          "SUBJID": { "title": "Subjid", "type": "string" },
+          "visitName": { "title": "Visitname", "type": "string" },
+          "visitNumber": {
+            "title": "Visitnumber",
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "visitDate": {
+            "title": "Visitdate",
+            "type": "string",
+            "format": "date"
+          },
+          "medication": { "$ref": "#/components/schemas/Medication" },
+          "labs": { "$ref": "#/components/schemas/Labs" },
+          "bmi": { "$ref": "#/components/schemas/BMI" },
+          "damageChecklist": { "$ref": "#/components/schemas/DamageChecklist" },
+          "bloodPressure": { "$ref": "#/components/schemas/BloodPressure" },
+          "bmd": { "$ref": "#/components/schemas/BMD" },
+          "steroidMyopathy": { "$ref": "#/components/schemas/SteroidMyopathy" },
+          "skinToxicity": { "$ref": "#/components/schemas/SkinToxicityAGTI" },
+          "neuropsychiatric": {
+            "$ref": "#/components/schemas/NeuropsychiatricAGTI"
+          },
+          "infections": { "$ref": "#/components/schemas/Infections" },
+          "events": { "$ref": "#/components/schemas/Events" }
+        },
+        "additionalProperties": false
+      },
+      "VisitBGTI": {
+        "title": "BGTI",
+        "required": [
+          "SUBJID",
+          "visitNumber",
+          "visitDate",
+          "medication",
+          "labs",
+          "bmi",
+          "bloodPressure",
+          "steroidMyopathy",
+          "skinToxicity",
+          "neuropsychiatric",
+          "infections",
+          "events"
+        ],
+        "type": "object",
+        "properties": {
+          "SUBJID": { "title": "Subjid", "type": "string" },
+          "visitName": { "title": "Visitname", "type": "string" },
+          "visitNumber": {
+            "title": "Visitnumber",
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "visitDate": {
+            "title": "Visitdate",
+            "type": "string",
+            "format": "date"
+          },
+          "medication": { "$ref": "#/components/schemas/Medication" },
+          "labs": { "$ref": "#/components/schemas/Labs" },
+          "bmi": { "$ref": "#/components/schemas/BMI" },
+          "damageChecklist": { "$ref": "#/components/schemas/DamageChecklist" },
+          "bloodPressure": { "$ref": "#/components/schemas/BloodPressure" },
+          "steroidMyopathy": { "$ref": "#/components/schemas/SteroidMyopathy" },
+          "skinToxicity": { "$ref": "#/components/schemas/SkinToxicityAGTI" },
+          "neuropsychiatric": {
+            "$ref": "#/components/schemas/NeuropsychiatricAGTI"
+          },
+          "infections": { "$ref": "#/components/schemas/Infections" },
+          "events": { "$ref": "#/components/schemas/Events" }
+        },
+        "additionalProperties": false
+      },
+      "VisitMDGTI": {
+        "title": "MDGTI",
+        "required": [
+          "SUBJID",
+          "visitNumber",
+          "visitDate",
+          "medication",
+          "labs",
+          "bmi",
+          "bloodPressure"
+        ],
+        "type": "object",
+        "properties": {
+          "SUBJID": { "title": "Subjid", "type": "string" },
+          "visitName": { "title": "Visitname", "type": "string" },
+          "visitNumber": {
+            "title": "Visitnumber",
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "visitDate": {
+            "title": "Visitdate",
+            "type": "string",
+            "format": "date"
+          },
+          "medication": { "$ref": "#/components/schemas/Medication" },
+          "labs": { "$ref": "#/components/schemas/Labs" },
+          "bmi": { "$ref": "#/components/schemas/BMI" },
+          "damageChecklist": { "$ref": "#/components/schemas/DamageChecklist" },
+          "bloodPressure": { "$ref": "#/components/schemas/BloodPressure" }
+        },
+        "additionalProperties": false
+      },
+      "VisitPGTI": {
+        "title": "PGTI",
+        "required": [
+          "SUBJID",
+          "visitNumber",
+          "visitDate",
+          "medication",
+          "labs",
+          "bmi",
+          "subject",
+          "bloodPressure",
+          "steroidMyopathy",
+          "skinToxicity",
+          "neuropsychiatric",
+          "infections",
+          "events"
+        ],
+        "type": "object",
+        "properties": {
+          "SUBJID": { "title": "Subjid", "type": "string" },
+          "visitName": { "title": "Visitname", "type": "string" },
+          "visitNumber": {
+            "title": "Visitnumber",
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "visitDate": {
+            "title": "Visitdate",
+            "type": "string",
+            "format": "date"
+          },
+          "medication": { "$ref": "#/components/schemas/Medication" },
+          "labs": { "$ref": "#/components/schemas/Labs" },
+          "bmi": { "$ref": "#/components/schemas/BMI" },
+          "damageChecklist": { "$ref": "#/components/schemas/DamageChecklist" },
+          "subject": { "$ref": "#/components/schemas/Subject" },
+          "bloodPressure": { "$ref": "#/components/schemas/BloodPressurePGTI" },
+          "steroidMyopathy": { "$ref": "#/components/schemas/SteroidMyopathy" },
+          "skinToxicity": { "$ref": "#/components/schemas/SkinToxicityPGTI" },
+          "neuropsychiatric": {
+            "$ref": "#/components/schemas/NeuropsychiatricPGTI"
+          },
+          "infections": { "$ref": "#/components/schemas/Infections" },
+          "events": { "$ref": "#/components/schemas/Events" }
+        },
+        "additionalProperties": false
+      },
+      "VisitScore": {
+        "title": "VisitScore",
+        "type": "object",
+        "properties": {
+          "SUBJID": { "title": "Subjid", "type": "string" },
+          "visitNumber": {
+            "title": "Visitnumber",
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "visitName": { "title": "Visitname", "type": "string" },
+          "visitDate": {
+            "title": "Visitdate",
+            "anyOf": [
+              { "type": "string" },
+              { "type": "string", "format": "date" }
+            ]
+          },
+          "bodyMassIndex": { "$ref": "#/components/schemas/ScoreObject" },
+          "bloodPressure": { "$ref": "#/components/schemas/ScoreObject" },
+          "boneDensity": { "$ref": "#/components/schemas/ScoreObject" },
+          "bmd": { "$ref": "#/components/schemas/BMDScore" },
+          "steroidMyopathy": { "$ref": "#/components/schemas/ScoreObject" },
+          "infection": { "$ref": "#/components/schemas/ScoreObject" },
+          "infections": { "$ref": "#/components/schemas/InfectionsScore" },
+          "labs": { "$ref": "#/components/schemas/LabsScore" },
+          "skinToxicity": { "$ref": "#/components/schemas/SkinToxicityScore" },
+          "neuropsychiatric": {
+            "$ref": "#/components/schemas/NeuropsychiatricScore"
+          },
+          "growth": { "$ref": "#/components/schemas/ScoreObject" },
+          "ocular": { "$ref": "#/components/schemas/OcularScore" },
+          "gastrointestinal": {
+            "$ref": "#/components/schemas/GastrointestinalScore"
+          },
+          "adrenalInsufficiency": {
+            "$ref": "#/components/schemas/ScoreObject"
+          },
+          "bpEvents": { "$ref": "#/components/schemas/ScoreObject" },
+          "diabetes": { "$ref": "#/components/schemas/DiabetesScore" },
+          "damageChecklist": {
+            "title": "Damagechecklist",
+            "allOf": [{ "$ref": "#/components/schemas/DamageChecklist" }],
+            "default": {}
+          },
+          "csw": { "title": "Cumulative Worsening Score", "type": "integer" },
+          "ais": { "title": "Aggregate Improvement Score", "type": "integer" }
+        }
+      }
+    },
+    "securitySchemes": {
+      "APIKeyHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "access_token"
+      }
+    }
+  }
+}

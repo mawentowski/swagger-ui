@@ -1,0 +1,248 @@
+name: openapi-styleguide
+title: OpenAPI field descriptions style guide
+state: active
+description: Styleguide for writing informative OpenAPI field descriptions.
+
+rules:
+  central-concepts:
+    rule: Centralize the definition of key concepts and terms
+    description: |
+      - Do not presume prior knowledge of terms or concepts. Ensure that your explanations are easily understandable to readers who may be unfamiliar with the subject matter.
+      - Establish a dedicated section for defining and explaining frequently used terms and concepts, and incorporate links within pertinent field descriptions.
+      - When employing acronyms, provide clear definitions upfront, such as in a Common Terms section or an API glossary.
+    examples:
+      bad:
+        - language: YAML
+          code: |
+            paths:
+               /data-integration:
+                post:
+                  summary: Initiate data integration
+                  description: Initiates a data integration process.
+      good:
+        - language: YAML
+          code: |
+            paths:
+               /data-integration:
+                post:
+                  summary: Initiate data integration
+                  description: |
+                    Initiates a `[data integration process](/data-integration-guide.html)`, extracting data from various sources and unifying it into a centralized data store.
+  complex-booleans:
+    rule: Describe complex boolean behaviors
+    rationale: |
+      When dealing with boolean fields, explain both TRUE and FALSE behaviors when they are not simply opposites.
+    examples:
+      bad:
+        - language: YAML
+          code: |
+            parameters:
+            - name: publish
+              in: query
+              description: TRUE publishes the blog post instantly.
+              schema:
+                type: boolean
+      good:
+        - language: YAML
+          code: |
+            parameters:
+            - name: publish
+              in: query
+              description: TRUE publishes the blog post instantly. FALSE saves it as a draft.
+              schema:
+                type: boolean
+  date-formats:
+    rule: Define explicit date formats
+    rationale: |
+      Neglecting to specify date formats can lead to misinterpretation, inconsistencies across the API, and integration complications.
+
+      For instance, your API might use date formats like "date" (YYYY-MM-DD) or "date-time" (RFC 3339 restricted format). To prevent confusion, it's crucial to clearly inform API users about the expected format. Include an illustrative example, following the [show examples using the examples property](#examples) rule.
+
+      When feasible, centralize the description of date formats, particularly if your API maintains a consistent date format throughout.
+    examples:
+      bad:
+        - language: YAML
+          code: |
+            parameters:
+              - name: start_date
+                in: query
+                description: Start date and time for filtering data
+                schema:
+                  type: string
+      good:
+        - language: YAML
+          code: |
+            parameters:
+              - name: start_date
+                in: query
+                description: Start date and time for filtering data in [RFC 3339 format](https://datatracker.ietf.org/doc/html/rfc3339).
+                schema:
+                  type: string
+                example: "2022-07-21T17:32:28Z"
+  defaults:
+    rule: Utilize the "default" property for parameter defaults
+    rationale: |
+      Employ the "default" property to indicate default values as metadata, diminishing the likelihood of descriptions becoming obsolete.
+
+      In the case of ENUMs, it is recommended to [describe ENUMs at the component level](#enum-schemas).
+    examples:
+      bad:
+        - language: YAML
+          code: |
+            parameters:
+            - name: deliveryOption
+              in: query
+              description: An optional parameter to choose a delivery option that defaults to STANDARD.
+              schema:
+                type: string
+      good:
+        - language: YAML
+          code: |
+            parameters:
+            - name: deliveryOption
+              in: query
+              description: An optional parameter to choose a delivery option.
+              default: "STANDARD"
+              schema:
+                type: string
+                $ref: '#/components/schemas/ShippingOptionEnums'
+  endpoint-summaries:
+    rule: Convey verb-object-response in endpoint summaries
+    severity: info
+    description: |
+      Endpoint summaries should start with an action verb (based on the method), reference the targetted object, and convey the expected response.
+    examples:
+      bad:
+        - language: YAML
+          code: |
+            paths:
+              /products:
+                get:
+                  summary: List of available products
+      good:
+        - language: YAML
+          code: |
+            paths:
+              /products:
+                get:
+                  summary: Retrieve a list of available products
+  enums-schemas:
+    rule: Enum definitions and descriptions using schemas
+    rationale: |
+      Including ENUMs and their descriptions within individual OpenAPI field descriptions may lead to outdated information as the API undergoes changes. It is advisable to define and elucidate ENUMs at the schema-level for better documentation maintenance.
+
+      Consider the complexity of ENUM values when deciding whether they require explanation.
+    examples:
+      bad:
+        - language: YAML
+          code: |
+            parameters:
+              - name: status
+                in: query
+                description: Status of the resource (Possible values: 'active', 'inactive', 'deleted')
+                schema:
+                  type: string
+      good:
+        - language: YAML
+          code: |
+            parameters:
+              - name: status
+                in: query
+                description: Status of the resource.
+                schema:
+                  # (Refer to 'StatusEnum' ENUM for possible values and their meaning).
+                  $ref: '#/components/schemas/StatusEnum'
+  examples:
+    rule: Show examples using the examples property
+    rationale: |
+      When providing examples in your API documentation, use the `example` property rather than embedding them within the field description.
+
+      Storing examples as metadata allows tools and platforms to efficiently extract and display examples, ensuring they are correctly formatted and stand out for developers to easily reference, as well as analyze examples for specific purposes.
+    examples:
+      bad:
+        - language: YAML
+          code: |
+            parameters:
+              - name: transactionAmount
+                in: query
+                description: The amount of the financial transaction.
+                schema:
+                  type: number
+      good:
+        - language: YAML
+          code: |
+            parameters:
+              - name: transactionAmount
+                in: query
+                description: The amount of the financial transaction.
+                schema:
+                  type: number
+                  format: double
+                  multipleOf: 0.01
+                example: 100.50
+  field-interactions:
+    rule: Clarify interactions between fields
+    rationale: |
+      For a given operation, when two or more fields work in conjunction to produce a specific result, describe their relationship and the expected outcome. Are there any dependencies, constraints, or expectations when multiple fields are used simultaneously?
+    examples:
+      bad:
+        - language: YAML
+          code: |
+            paths:
+              /devices:
+                post:
+                  summary: Configure IoT device sensors
+      good:
+        - language: YAML
+          code: |
+            paths:
+              /devices:
+                post:
+                  summary: Configure IoT device sensors
+                  description: |
+                    # This operation has the following parameters:
+                    #   - `sensorType`: Specifies the type of sensor (e.g., temperature, humidity).
+                    #   - `samplingInterval`: Determines how often the sensor takes readings.
+                    #   - `threshold`: Sets a value that triggers an alert when sensor data exceeds it.
+
+                    When a `temperature` sensor is selected, the `samplingInterval` should not be set too frequently to conserve power. The `threshold` value might need to be configured within a certain range for meaningful alerts.
+  metadata:
+    rule: Distinguish metadata from descriptive content
+    rationale: |
+      Elaborating on metadata-related particulars can risk becoming outdated as the API evolves. This encompasses considerations like:
+
+      - **Strings**: Character limits and format constraints.
+      - **Numbers**: Range, precision, and units for numeric values.
+      - **Arrays**: Permissible values and size restrictions.
+      - **Dates and Times**: Date and time formatting and time zone specifications.
+      - **Enums**: Enumeration values.
+
+      Concentrate your documentation on elements that cannot be encompassed within metadata. As exemplified in the 'good' instance provided below, the unit 'meters' cannot be fully conveyed via metadata and should, therefore, be incorporated within the field's description.
+    examples:
+      bad:
+        - language: YAML
+          code: |
+            parameters:
+              - name: distance
+                in: query
+                schema:
+                  type: number
+                  description: Maximum distance in meters. Specify a value within the range of 0 to 100, and it must be a multiple of 5.
+      good:
+        - language: YAML
+          code: |
+            parameters:
+              - name: distance
+                in: query
+                schema:
+                  type: number
+                  description: Maximum distance in meters.
+                  minimum: 0
+                  maximum: 100
+                  multipleOf: 5
+
+
+
+
+
+

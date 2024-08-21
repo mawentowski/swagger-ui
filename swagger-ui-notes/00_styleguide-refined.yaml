@@ -1,0 +1,227 @@
+name: openapi-styleguide
+title: OpenAPI field descriptions style guide
+state: active
+description: Styleguide for writing informative OpenAPI field descriptions.
+
+rules:
+  linking:
+    rule: Link to extended documentation
+    rationale: |
+      Excessively long examples and processes in reference documentation can hinder swift information retrieval. To maintain a balance, craft concise paragraphs focusing on the field or component's role within the system. When referencing other terms or concepts, link to relevant documentation explaining those concepts, such as Concepts guide or an API glossary.
+  metadata:
+    rule: Avoid duplicating metadata
+    rationale: |
+      Describing metadata-related details can lead the risk of outdated information as the API evolves. This includes aspects such as:
+
+      - **String**: Character limits and format constraints.
+      - **Number**: Range, precision, and units for numeric values.
+      - **Arrays**: Allowed values and size limits.
+      - **Dates and Time**: Date and time format and time zone information.
+      - **Enum**: Enumeration values.
+
+      Focus your documentation on aspects that can't be captured as metadata. In the 'good' example provided below, 'meters' cannot be defined using metadata. Therefore, it is appropriate to incorporate this information within the field's description.
+    examples:
+      bad:
+        - language: YAML
+          code: |
+            paths:
+              /locations:
+                get:
+                  description: Retrieve locations within a specified distance.
+                  parameters:
+                    - name: distance
+                      in: query
+                      schema:
+                        type: number
+                        description: Maximum distance in meters. Specify a value within the range of 0 to 100, and it must be a multiple of 5.
+      good:
+        - language: YAML
+          code: |
+            paths:
+              /locations:
+                get:
+                  description: Retrieve locations within a specified distance.
+                  parameters:
+                    - name: distance
+                      in: query
+                      schema:
+                        type: number
+                        description: Maximum distance in meters.
+                        minimum: 0
+                        maximum: 100
+                        multipleOf: 5
+  enum-components:
+    rule: Describe ENUMs on the component level
+    rationale: |
+      Listing and describing ENUMs within OpenAPI field descriptions runs the risk of field descriptions becoming out-of-date as the API evolves. Instead, define and explain ENUMs on the component level.
+
+      In the 'good' example, ENUMs are descrbed within the `StatusEnum` component.
+    examples:
+      bad:
+        - language: YAML
+          code: |
+            parameters:
+              - name: status
+                in: query
+                description: Status of the resource (Possible values: 'active', 'inactive', 'deleted')
+                schema:
+                  type: string
+      good:
+        - language: YAML
+          code: |
+            parameters:
+              - name: status
+                in: query
+                description: Status of the resource (Refer to 'StatusEnum' ENUM for possible values and their meaning)
+                schema:
+                  $ref: '#/components/schemas/StatusEnum'
+  defaults:
+    rule: Use the "default" property to specify parameter defaults
+    rationale: |
+      Use the default property to specify default values as metadata, reducing the risk of descriptions becoming outdated as defaults change with API evolution.
+
+      For ENUMs, [describe ENUMs on the component level](#enum-components).
+    examples:
+      bad:
+        - language: YAML
+          code: |
+            parameters:
+            - name: deliveryOption
+              in: query
+              description: Delivery options for mailing packages. Defaults to STANDARD_GROUND.
+              schema:
+                type: string
+      good:
+        - language: YAML
+          code: |
+            parameters:
+            - name: deliveryOption
+              in: query
+              description: Delivery options for mailing packages.
+              default: "STANDARD_GROUND"
+              schema:
+                type: string
+  complex-booleans:
+    rule: Clarify both TRUE and FALSE behavior for complex booleans
+    rationale: |
+      For boolean fields, describe TRUE and FALSE behavior when they are not simply opposites.
+    examples:
+      bad:
+        - language: YAML
+          code: |
+            parameters:
+            - name: publish
+              in: query
+              description: Choose TRUE to publish the blog post instantly.
+              schema:
+                type: boolean
+      good:
+        - language: YAML
+          code: |
+            parameters:
+            - name: publish
+              in: query
+              description: Choose TRUE to publish the blog post instantly, or select FALSE to save it as a draft.
+              schema:
+                type: boolean
+  date-formats:
+    rule: Specify date formats
+    rationale: |
+      Date-time formats can vary based on different standards, systems, and API specifications. Commonly, a date-time format is used consistently across an API.
+
+      Not specifying date formats can lead to incorrect submissions, confusion over varying date formats across the API, and integration issues.
+
+      For example, date formats for an API might either be "date" (YYYY-MM-DD) or "date-time" (RFC 3339 restricted format). It is crucial to provide clarity to API users regarding the expected format.
+
+      Additionally, [show examples using the examples property](#examples).
+    examples:
+      bad:
+        - language: YAML
+          code: |
+            parameters:
+              - name: event_date_time
+                in: query
+                description: The event's date-time.
+                schema:
+                  type: string
+                  format: date-time
+      good:
+        - language: YAML
+          code: |
+            parameters:
+              - name: event_date_time
+                in: query
+                description: ISO 8601-formatted date-time for the event.
+                schema:
+                  type: string
+                  format: date-time
+                example: "2023-10-26T14:30:00-05:00"
+
+  ######## LEFT OFF HERE: Below is good 👇👇👇
+  examples:
+    rule: Show examples using the examples property
+    rationale: |
+      When providing examples in your API documentation, use the `example` property rather than embedding them within the field description.
+
+      Storing examples as metadata allows tools and platforms to efficiently extract and display examples, ensuring they are correctly formatted and stand out for developers to easily reference, as well as analyze examples for specific purposes.
+    examples:
+      bad:
+        - language: YAML
+          code: |
+            parameters:
+              - name: filter
+                in: query
+                description: Define filtering criteria using a dictionary of key-value pairs to narrow down search results. For example, {"field": "value"}.
+                schema:
+                  type: object
+      good:
+        - language: YAML
+          code: |
+            parameters:
+              - name: filter
+                in: query
+                description: Define filtering criteria using a dictionary of key-value pairs to narrow down search results.
+                schema:
+                  type: object
+                example: {"field": "value"}
+  endpoint-summaries:
+    rule: Convey verb-object-response in endpoint summaries
+    severity: info
+    description: |
+      Endpoint summaries should start with an action verb (based on the method), reference the targetted object, and convey the expected response.
+    examples:
+      bad:
+        - language: YAML
+          code: |
+            paths:
+              /products:
+                get:
+                  summary: List of available products
+      good:
+        - language: YAML
+          code: |
+            paths:
+              /products:
+                get:
+                  summary: Retrieve a list of available products
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

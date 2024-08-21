@@ -1,0 +1,221 @@
+openapi: 3.0.0
+info:
+  title: Sample API
+  summary: Sample API.
+  description: This is a sample server Sample API
+  termsOfService: https://example.com/terms/
+  contact:
+    name: API Support
+    url: https://www.example.com/support
+    email: support@example.com
+  license:
+    name: Apache 2.0
+    identifier: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.1
+
+servers:
+# it defaults to / if its not provided
+- url: https://{username}.gigantic-server.com:{port}/{basePath}
+  description: The production API server
+  variables:
+    username:
+      # note! no enum here means it is an open value
+      default: demo
+      description: this value is assigned by the service provider, in this example `gigantic-server.com`
+    port:
+      enum:
+        - '8443'
+        - '443'
+      default: '8443'
+    basePath:
+      # open meaning there is the opportunity to use special base paths as assigned by the provider, default is `v2`
+      default: v2
+
+tags:
+  - name: User
+    description: Operations related to user management
+  - name: Product
+    description: Operations related to product management
+
+# The name used for each property MUST correspond to a security scheme declared in the Security Scheme
+security:
+  #  Optional OAuth2 security
+  - {}
+  # Non-OAuth2 Security Requirement
+  # From sample app, include the API key in the request headers to authenticate the requests.
+  # The API server, which is configured to validate the API key, would check the key in the request and, if it's valid, process the request accordingly.
+  # These are security schemes that you can apply to operations
+    # you can make them “To declare a security requirement as optional, you can add an empty object to the list of securities.”
+  # below api_key is optional
+  - api_key: []
+   # OAuth2 Security Requirement
+  - sample_auth:
+    # specify the scopes
+    - write:users
+    - read:users
+
+# relative paths to the individual endpoints and their operations
+# The path is appended (no relative URL resolution) to the expanded URL
+paths:
+  /users:
+    get:
+      summary: Get a list of users
+      tags:
+        - User
+      parameters:
+        - name: page
+          in: query
+          description: Page number for pagination
+          schema:
+            type: integer
+          required: false
+      responses:
+        '200':
+          description: Successful response
+
+    post:
+      summary: Create a user
+      tags:
+        - User
+      requestBody:
+        description: JSON data for user creation
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+              required:
+                - name
+                - email
+      responses:
+        '201':
+          description: User created successfully
+
+  /users/{id}:
+    get:
+      summary: Get user by ID
+      tags:
+        - User
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Successful response
+
+  /products:
+    get:
+      summary: Get a list of products
+      tags:
+        - Product
+      parameters:
+        - name: category
+          in: query
+          description: Filter products by category
+          schema:
+            type: string
+          required: false
+      responses:
+        '200':
+          description: Successful response
+components:
+  schemas:
+    GeneralError:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+  parameters:
+    skipParam:
+      name: skip
+      in: query
+      description: number of items to skip
+      required: true
+      schema:
+        type: integer
+        format: int32
+    limitParam:
+      name: limit
+      in: query
+      description: max records to return
+      required: true
+      schema:
+        type: integer
+        format: int32
+  responses:
+    NotFound:
+      description: Entity not found.
+    IllegalInput:
+      description: Illegal input for operation.
+    GeneralError:
+      description: General Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GeneralError'
+  # these appear to be api-wide security schemes
+  securitySchemes:
+    # TYPE is the type of security scheme.
+    # username and password
+    basic:
+      type: http
+      scheme: basic
+    # JWT Bearer Sample
+    # Dont have much info on this
+    # Chectk to see if you can define it as query, header, or cookie.
+    # JWT is a type of HTTP
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    api_key:
+      type: apiKey
+      name: api_key
+      # can be query, header, or cookie
+      in: header
+    # Implicit OAuth2 Sample
+    sample_auth:
+      type: oauth2
+      flows:
+        # Configuration for the OAuth Implicit flow
+        implicit:
+          authorizationUrl: https://example.com/api/oauth/dialog
+          scopes:
+            write:pets: modify pets in your account
+            read:pets: read your pets
+        # Configuration for the OAuth Authorization Code flow.
+        authorizationCode:
+          authorizationUrl: https://example.com/api/oauth/dialog
+          tokenUrl: https://example.com/api/oauth/token
+          scopes:
+            write:pets: modify pets in your account
+            read:pets: read your pets
